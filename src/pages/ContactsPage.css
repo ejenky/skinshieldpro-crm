@@ -12,19 +12,22 @@
 }
 
 .contacts-title {
-  font-size: 22px;
+  font-size: 20px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .contacts-count {
-  font-size: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
-  background: var(--bg-tertiary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
   padding: 2px 10px;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 /* ── Filters ── */
@@ -58,11 +61,13 @@
   background: var(--bg-secondary);
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.2s;
+  font-size: 13px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .contacts-search input:focus {
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 .contacts-search input::placeholder {
@@ -93,6 +98,7 @@
   outline: none;
   cursor: pointer;
   min-width: 120px;
+  font-size: 13px;
 }
 
 .contacts-filters select:focus {
@@ -108,13 +114,13 @@
 }
 
 .contacts-empty p {
-  font-size: 16px;
+  font-size: 15px;
   color: var(--text-secondary);
   margin-bottom: 4px;
 }
 
 .contacts-empty span {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .contacts-empty--cta {
@@ -147,21 +153,22 @@
 .contacts-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .contacts-table th {
   text-align: left;
-  padding: 10px 14px;
-  font-size: 12px;
+  padding: 12px 16px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.05em;
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
+  background: var(--bg-tertiary);
 }
 
 .contacts-table th:hover {
@@ -169,14 +176,18 @@
 }
 
 .contacts-table td {
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-subtle);
   white-space: nowrap;
 }
 
 .contacts-table tbody tr {
   cursor: pointer;
   transition: background 0.1s;
+}
+
+.contacts-table tbody tr:nth-child(even) {
+  background: var(--bg-row-alt);
 }
 
 .contacts-table tbody tr:hover {
@@ -198,22 +209,24 @@
 
 .td-mono {
   font-family: var(--mono);
-  font-size: 13px;
+  font-size: 12px;
+  color: var(--text-secondary);
 }
 
 .td-muted {
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 /* ── Stage badge ── */
 .stage-badge {
   display: inline-block;
-  padding: 2px 10px;
-  border-radius: 12px;
-  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 11px;
   font-weight: 600;
   white-space: nowrap;
+  letter-spacing: 0.01em;
 }
 
 /* ── Card view (mobile) ── */
@@ -227,7 +240,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 14px;
+  padding: 14px 16px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: var(--bg-secondary);
@@ -259,18 +272,18 @@
 .contact-card-name {
   font-weight: 600;
   color: var(--text-primary);
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .contact-card-sub {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
 }
 
 .contact-card-meta {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -289,7 +302,7 @@
   border: 1px solid var(--border);
   background: var(--bg-secondary);
   color: var(--text-primary);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   transition: background 0.15s, border-color 0.15s;
 }
@@ -305,7 +318,8 @@
 }
 
 .pagination-info {
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -313,7 +327,8 @@
 .detail-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   z-index: 200;
 }
 
@@ -346,7 +361,8 @@
 }
 
 .detail-header h3 {
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -387,7 +403,7 @@
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
   margin-bottom: 10px;
   display: block;
@@ -405,7 +421,7 @@
 }
 
 .detail-edit-btn {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--accent);
   background: none;
   border: none;
@@ -424,14 +440,14 @@
 }
 
 .detail-save-btn {
-  font-size: 13px;
-  color: #fff;
+  font-size: 12px;
+  color: #000;
   background: var(--accent);
   border: none;
   padding: 4px 12px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .detail-save-btn:hover {
@@ -451,10 +467,10 @@
 }
 
 .stage-btn {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   padding: 5px 12px;
-  border-radius: 14px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: var(--bg-tertiary);
   color: var(--text-secondary);
@@ -498,7 +514,7 @@
 
 .detail-notes-text {
   white-space: pre-wrap;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
   line-height: 1.5;
 }
@@ -519,7 +535,7 @@
 }
 
 .detail-field-label {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -537,7 +553,7 @@
   border: 1px solid var(--border);
   background: var(--bg-tertiary);
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 13px;
   outline: none;
   transition: border-color 0.2s;
   width: 100%;
@@ -567,7 +583,7 @@
   border: 1px solid var(--border);
   background: var(--bg-tertiary);
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 13px;
   outline: none;
   width: 100%;
   transition: border-color 0.2s;
@@ -592,18 +608,18 @@
   border-radius: var(--radius);
   border: none;
   background: var(--accent);
-  color: #fff;
-  font-size: 13px;
+  color: #000;
+  font-size: 12px;
   font-weight: 600;
-  transition: background 0.2s;
+  transition: opacity 0.2s;
 }
 
 .log-activity-form button:hover:not(:disabled) {
-  background: var(--accent-hover);
+  opacity: 0.85;
 }
 
 .log-activity-form button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -611,7 +627,6 @@
 .detail-activity-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
   max-height: 320px;
   overflow-y: auto;
 }
@@ -621,12 +636,16 @@
   align-items: flex-start;
   gap: 10px;
   padding: 8px 4px;
-  border-radius: var(--radius-sm);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.detail-activity-row:last-child {
+  border-bottom: none;
 }
 
 .detail-activity-icon {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -643,20 +662,21 @@
 }
 
 .detail-activity-type {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-primary);
 }
 
 .detail-activity-note {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-secondary);
   white-space: pre-wrap;
   word-break: break-word;
 }
 
 .detail-activity-time {
-  font-size: 11px;
+  font-family: var(--mono);
+  font-size: 10px;
   color: var(--text-muted);
   white-space: nowrap;
   flex-shrink: 0;
@@ -664,7 +684,7 @@
 }
 
 .detail-muted {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 
@@ -672,7 +692,8 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
   z-index: 300;
 }
 
@@ -690,7 +711,7 @@
   z-index: 301;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lg);
   animation: modal-in 0.15s ease;
 }
 
@@ -708,17 +729,18 @@
 }
 
 .modal-header h3 {
-  font-size: 18px;
+  font-size: 17px;
+  font-weight: 600;
 }
 
 .modal-error {
   margin: 12px 20px 0;
   padding: 8px 12px;
-  background: rgba(239, 68, 68, 0.12);
+  background: rgba(239, 68, 68, 0.08);
   color: var(--danger);
   border-radius: var(--radius-sm);
-  font-size: 13px;
-  border: 1px solid rgba(239, 68, 68, 0.25);
+  font-size: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .modal-body {
@@ -737,7 +759,7 @@
 }
 
 .form-field label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
 }
@@ -751,6 +773,7 @@
   background: var(--bg-tertiary);
   color: var(--text-primary);
   outline: none;
+  font-size: 13px;
   transition: border-color 0.2s;
 }
 
@@ -786,18 +809,18 @@
   border-radius: var(--radius);
   border: none;
   background: var(--accent);
-  color: #fff;
+  color: #000;
   font-weight: 600;
-  font-size: 14px;
-  transition: background 0.2s;
+  font-size: 13px;
+  transition: opacity 0.2s;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: var(--accent-hover);
+  opacity: 0.85;
 }
 
 .btn-primary:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -808,7 +831,7 @@
   background: var(--bg-tertiary);
   color: var(--text-secondary);
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   transition: background 0.15s, border-color 0.15s;
 }
 
@@ -853,7 +876,7 @@
   }
 
   .stage-btn {
-    font-size: 11px;
+    font-size: 10px;
     padding: 4px 9px;
   }
 }

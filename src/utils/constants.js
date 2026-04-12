@@ -1,9 +1,10 @@
 export const STAGES = [
-  { value: 'new',          label: 'New Lead',      color: '#3b82f6' },
-  { value: 'contacted',    label: 'Contacted',     color: '#8b5cf6' },
-  { value: 'consultation', label: 'Consultation',  color: '#f59e0b' },
-  { value: 'treatment',    label: 'Treatment',     color: '#f97316' },
-  { value: 'customer',     label: 'Customer',      color: '#22c55e' },
+  { value: 'new',            label: 'New Lead',        color: '#6366f1' },
+  { value: 'contacted',      label: 'Contacted',       color: '#f59e0b' },
+  { value: 'interested',     label: 'Interested',      color: '#10b981' },
+  { value: 'sample_sent',    label: 'Sample Sent',     color: '#8b5cf6' },
+  { value: 'customer',       label: 'Customer',        color: '#06b6d4' },
+  { value: 'not_interested', label: 'Not Interested',  color: '#ef4444' },
 ];
 
 export const STAGE_MAP = Object.fromEntries(

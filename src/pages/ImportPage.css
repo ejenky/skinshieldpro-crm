@@ -7,7 +7,8 @@
 }
 
 .import-title {
-  font-size: 22px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 /* ── Dropzone ── */
@@ -22,6 +23,7 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  background: var(--bg-secondary);
 }
 
 .csv-dropzone:hover,
@@ -39,7 +41,7 @@
 }
 
 .csv-dropzone-text {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--text-secondary);
 }
 
@@ -48,7 +50,7 @@
 }
 
 .csv-dropzone-hint {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
 }
 
@@ -61,7 +63,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-primary);
 }
 
@@ -71,8 +73,9 @@
 }
 
 .import-file-rows {
+  font-family: var(--mono);
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .import-file-change {
@@ -80,7 +83,7 @@
   background: none;
   border: none;
   color: var(--accent);
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
   padding: 2px 6px;
   border-radius: var(--radius-sm);
@@ -92,13 +95,13 @@
 
 /* ── Section titles ── */
 .import-section-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 6px;
 }
 
 .import-section-desc {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-muted);
   margin-bottom: 12px;
 }
@@ -124,7 +127,7 @@
 }
 
 .mapper-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-secondary);
   min-width: 100px;
@@ -138,7 +141,7 @@
   border: 1px solid var(--border);
   background: var(--bg-tertiary);
   color: var(--text-primary);
-  font-size: 13px;
+  font-size: 12px;
   outline: none;
   cursor: pointer;
 }
@@ -156,7 +159,8 @@
 }
 
 .import-preview-count {
-  font-size: 13px;
+  font-family: var(--mono);
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-muted);
   margin-left: 8px;
@@ -166,7 +170,7 @@
   padding: 24px;
   text-align: center;
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .import-preview-table-wrap {
@@ -177,24 +181,25 @@
 .import-preview-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .import-preview-table th {
   text-align: left;
   padding: 8px 10px;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.05em;
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
+  background: var(--bg-tertiary);
 }
 
 .import-preview-table td {
   padding: 7px 10px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-subtle);
   white-space: nowrap;
   max-width: 200px;
   overflow: hidden;
@@ -218,7 +223,7 @@
   font-size: 10px;
   font-weight: 700;
   color: var(--warning);
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(245, 158, 11, 0.1);
   padding: 2px 6px;
   border-radius: 4px;
 }
@@ -232,7 +237,7 @@
 }
 
 .import-dup-notice {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--warning);
   margin-right: auto;
 }
@@ -251,28 +256,29 @@
 
 .import-progress-bar-track {
   width: 100%;
-  height: 8px;
+  height: 6px;
   background: var(--bg-tertiary);
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
 }
 
 .import-progress-bar-fill {
   height: 100%;
   background: var(--accent);
-  border-radius: 4px;
+  border-radius: 3px;
   transition: width 0.15s ease;
 }
 
 .import-progress-pct {
-  font-size: 14px;
+  font-family: var(--mono);
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
 }
 
 .import-summary {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
 }
 
@@ -289,12 +295,13 @@
 }
 
 .import-summary-value {
+  font-family: var(--mono);
   font-size: 28px;
   font-weight: 700;
 }
 
 .import-summary-label {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
   font-weight: 500;
 }

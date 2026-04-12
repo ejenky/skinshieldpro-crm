@@ -6,7 +6,8 @@
 }
 
 .dashboard-title {
-  font-size: 22px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .dashboard-loading {
@@ -16,9 +17,10 @@
 }
 
 .dashboard-section-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   margin-bottom: 16px;
+  letter-spacing: -0.01em;
 }
 
 /* ── Stat cards ── */
@@ -32,7 +34,7 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 20px 20px 20px 24px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -40,32 +42,35 @@
   overflow: hidden;
 }
 
-.stat-card-indicator {
+.stat-card-accent {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 3px;
+  bottom: 0;
+  width: 3px;
 }
 
 .stat-card-label {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-secondary);
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .stat-card-value {
+  font-family: var(--mono);
   font-size: 28px;
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.02em;
 }
 
 /* ── Dashboard grid ── */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 16px;
 }
 
 /* ── Pipeline overview ── */
@@ -79,7 +84,7 @@
 .pipeline-stages {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .pipeline-stage-card {
@@ -88,7 +93,7 @@
   gap: 8px;
   padding: 12px 14px;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-subtle);
   background: var(--bg-tertiary);
   cursor: pointer;
   width: 100%;
@@ -96,17 +101,18 @@
   color: inherit;
   font-family: inherit;
   font-size: inherit;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, background 0.15s;
 }
 
 .pipeline-stage-card:hover {
-  border-color: var(--text-muted);
+  border-color: var(--border);
+  background: var(--bg-hover);
 }
 
 .pipeline-stage-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .pipeline-stage-dot {
@@ -117,33 +123,35 @@
 }
 
 .pipeline-stage-label {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-primary);
 }
 
 .pipeline-stage-count {
   margin-left: auto;
-  font-size: 15px;
-  font-weight: 700;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
 .pipeline-stage-bar-track {
-  height: 6px;
-  border-radius: 3px;
+  height: 4px;
+  border-radius: 2px;
   background: var(--bg-primary);
   overflow: hidden;
 }
 
 .pipeline-stage-bar-fill {
   height: 100%;
-  border-radius: 3px;
+  border-radius: 2px;
   transition: width 0.4s ease;
 }
 
 .pipeline-stage-pct {
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
   color: var(--text-muted);
 }
 
@@ -160,7 +168,7 @@
 
 .recent-activity-empty {
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 13px;
   padding: 24px 0;
   text-align: center;
 }
@@ -168,7 +176,6 @@
 .activity-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
   overflow-y: auto;
   max-height: 460px;
 }
@@ -178,8 +185,11 @@
   align-items: center;
   gap: 12px;
   padding: 10px 8px;
-  border-radius: var(--radius);
-  border: none;
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-top: none;
   background: none;
   width: 100%;
   text-align: left;
@@ -190,14 +200,18 @@
   transition: background 0.15s;
 }
 
+.activity-row:last-child {
+  border-bottom: none;
+}
+
 .activity-row:hover {
   background: var(--bg-hover);
 }
 
 .activity-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius);
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -209,17 +223,17 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .activity-contact {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-primary);
 }
 
 .activity-note {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-secondary);
   white-space: nowrap;
   overflow: hidden;
@@ -227,7 +241,8 @@
 }
 
 .activity-time {
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
   color: var(--text-muted);
   white-space: nowrap;
   flex-shrink: 0;

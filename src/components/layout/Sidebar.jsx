@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 
 const NAV_ITEMS = [
-  { to: '/',         label: 'Dashboard', icon: 'dashboard' },
+  { to: '/dashboard', label: 'Dashboard', icon: 'dashboard' },
   { to: '/contacts', label: 'Contacts',  icon: 'contacts' },
   { to: '/pipeline', label: 'Pipeline',  icon: 'pipeline' },
   { to: '/import',   label: 'Import',    icon: 'import' },

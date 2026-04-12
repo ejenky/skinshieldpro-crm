@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
+import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import ContactsPage from './pages/ContactsPage';
@@ -8,6 +9,7 @@ import ImportPage from './pages/ImportPage';
 import SettingsPage from './pages/SettingsPage';
 import Layout from './components/layout/Layout';
 import './pages/LoginPage.css';
+import './pages/LandingPage.css';
 
 function ProtectedRoute({ children }) {
   const { isValid } = useAuth();
@@ -22,8 +24,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
+          index
+          element={isValid ? <Navigate to="/dashboard" replace /> : <LandingPage />}
+        />
+        <Route
           path="/login"
-          element={isValid ? <Navigate to="/" replace /> : <LoginPage />}
+          element={isValid ? <Navigate to="/dashboard" replace /> : <LoginPage />}
         />
         <Route
           element={
@@ -32,7 +38,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<DashboardPage />} />
+          <Route path="dashboard" element={<DashboardPage />} />
           <Route path="contacts" element={<ContactsPage />} />
           <Route path="contacts/:id" element={<ContactsPage />} />
           <Route path="pipeline" element={<PipelinePage />} />

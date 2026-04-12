@@ -1,0 +1,10 @@
+[[redirects]]
+  from = "/pb/*"
+  to = "http://159.65.184.35:8090/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

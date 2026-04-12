@@ -18,7 +18,7 @@ export function useAuth() {
   const login = useCallback(async (email, password) => {
     setLoading(true);
     try {
-      const authData = await pb.collection('users').authWithPassword(email, password);
+      const authData = await pb.collection('crm_users').authWithPassword(email, password);
       return authData;
     } finally {
       setLoading(false);

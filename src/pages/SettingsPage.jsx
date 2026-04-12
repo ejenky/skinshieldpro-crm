@@ -40,13 +40,13 @@ export default function SettingsPage() {
 
     setPwSaving(true);
     try {
-      await pb.collection('users').update(user.id, {
+      await pb.collection('crm_users').update(user.id, {
         oldPassword,
         password: newPassword,
         passwordConfirm: confirmPassword,
       });
       // Re-auth with new password
-      await pb.collection('users').authWithPassword(user.email, newPassword);
+      await pb.collection('crm_users').authWithPassword(user.email, newPassword);
       setOldPassword('');
       setNewPassword('');
       setConfirmPassword('');

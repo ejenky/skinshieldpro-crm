@@ -1,0 +1,329 @@
+/* ── Import page ── */
+.import-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 860px;
+}
+
+.import-title {
+  font-size: 22px;
+}
+
+/* ── Dropzone ── */
+.csv-dropzone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.csv-dropzone:hover,
+.csv-dropzone--active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+.csv-dropzone-icon {
+  color: var(--text-muted);
+}
+
+.csv-dropzone--active .csv-dropzone-icon {
+  color: var(--accent);
+}
+
+.csv-dropzone-text {
+  font-size: 15px;
+  color: var(--text-secondary);
+}
+
+.csv-dropzone-text strong {
+  color: var(--text-primary);
+}
+
+.csv-dropzone-hint {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── File info bar ── */
+.import-file-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.import-file-info svg {
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.import-file-rows {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.import-file-change {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+.import-file-change:hover {
+  background: var(--accent-light);
+}
+
+/* ── Section titles ── */
+.import-section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.import-section-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+/* ── Column mapper ── */
+.column-mapper {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.mapper-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+.mapper-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mapper-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  min-width: 100px;
+  flex-shrink: 0;
+}
+
+.mapper-row select {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+.mapper-row select:focus {
+  border-color: var(--accent);
+}
+
+/* ── Preview table ── */
+.import-preview {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.import-preview-count {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.import-preview-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.import-preview-table-wrap {
+  overflow-x: auto;
+  margin-top: 12px;
+}
+
+.import-preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.import-preview-table th {
+  text-align: left;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.import-preview-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.import-preview-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.import-preview-status {
+  width: 48px;
+  text-align: center !important;
+}
+
+.import-row-dup {
+  opacity: 0.5;
+}
+
+.import-dup-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--warning);
+  background: rgba(245, 158, 11, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ── Import actions ── */
+.import-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.import-dup-notice {
+  font-size: 13px;
+  color: var(--warning);
+  margin-right: auto;
+}
+
+/* ── Progress ── */
+.import-progress-section {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.import-progress-bar-track {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.import-progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 4px;
+  transition: width 0.15s ease;
+}
+
+.import-progress-pct {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.import-summary {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.import-summary-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-tertiary);
+}
+
+.import-summary-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.import-summary-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.import-summary-card--success .import-summary-value { color: var(--success); }
+.import-summary-card--warn .import-summary-value { color: var(--warning); }
+.import-summary-card--error .import-summary-value { color: var(--danger); }
+
+.import-done-actions {
+  padding-top: 4px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .mapper-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .import-summary {
+    flex-direction: column;
+  }
+
+  .import-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .import-dup-notice {
+    margin-right: 0;
+    text-align: center;
+  }
+}

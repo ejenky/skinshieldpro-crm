@@ -66,6 +66,7 @@ export default function ContactTable({ contacts, loading, onSelect, selectedId, 
                 Contact{sortIcon('contact_name')}
               </th>
               <th>Phone</th>
+              <th>Email</th>
               <th onClick={() => handleSort('city')}>
                 City / State{sortIcon('city')}
               </th>
@@ -89,7 +90,28 @@ export default function ContactTable({ contacts, loading, onSelect, selectedId, 
               >
                 <td className="td-primary">{c.gym_name || '\u2014'}</td>
                 <td>{c.contact_name || '\u2014'}</td>
-                <td className="td-mono">{formatPhone(c.phone)}</td>
+                <td className="td-mono">
+                  {c.phone ? (
+                    <a
+                      href={`tel:${c.phone}`}
+                      className="link-tel"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {formatPhone(c.phone)}
+                    </a>
+                  ) : '\u2014'}
+                </td>
+                <td>
+                  {c.email ? (
+                    <a
+                      href={`mailto:${c.email}`}
+                      className="link-email"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {c.email}
+                    </a>
+                  ) : '\u2014'}
+                </td>
                 <td>{[c.city, c.state].filter(Boolean).join(', ') || '\u2014'}</td>
                 <td>{c.gym_type || '\u2014'}</td>
                 <td><StageBadge stage={c.stage} /></td>

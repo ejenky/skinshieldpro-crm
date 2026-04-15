@@ -128,6 +128,7 @@ export default function ContactsPage() {
           onClick={toggleHasPhone}
           aria-pressed={hasPhone}
         >
+          <span className="filter-toggle-switch" aria-hidden="true" />
           Has Phone
         </button>
       </div>

@@ -38,7 +38,7 @@
 }
 
 .sidebar-header {
-  padding: 24px 20px 20px;
+  padding: 24px 20px 20px 24px;
 }
 
 .sidebar-logo {
@@ -76,16 +76,17 @@
 /* Nav links */
 .sidebar-nav {
   flex: 1;
-  padding: 8px 10px;
+  padding: 8px 12px 8px 16px;
   display: flex;
   flex-direction: column;
   gap: 2px;
+  overflow-x: hidden;
 }
 
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   padding: 9px 14px;
   border-radius: var(--radius);
   color: var(--text-secondary);
@@ -109,7 +110,7 @@
 .sidebar-link--active::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
   width: 3px;
@@ -131,7 +132,7 @@
 
 /* Footer / user */
 .sidebar-footer {
-  padding: 12px 10px;
+  padding: 12px 12px 12px 16px;
   border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;

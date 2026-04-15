@@ -5,6 +5,7 @@ import { STAGES } from '../utils/constants';
 export function useDashboardStats() {
   const [stats, setStats] = useState({
     total: 0,
+    withPhone: 0,
     stageCounts: {},
     recentActivities: [],
   });
@@ -13,13 +14,14 @@ export function useDashboardStats() {
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      // Fetch all contacts (just id + stage) to compute counts client-side.
+      // Fetch all contacts (just id + stage + phone) to compute counts client-side.
       // PocketBase doesn't support GROUP BY, so we pull the minimal field set.
       const contacts = await pb.collection('contacts').getFullList({
-        fields: 'id,stage',
+        fields: 'id,stage,phone',
       });
 
       const total = contacts.length;
+      let withPhone = 0;
       const stageCounts = {};
       for (const s of STAGES) {
         stageCounts[s.value] = 0;
@@ -28,6 +30,7 @@ export function useDashboardStats() {
         if (stageCounts[c.stage] !== undefined) {
           stageCounts[c.stage]++;
         }
+        if (c.phone && String(c.phone).trim()) withPhone++;
       }
 
       // Recent activities with expanded contact relation
@@ -38,6 +41,7 @@ export function useDashboardStats() {
 
       setStats({
         total,
+        withPhone,
         stageCounts,
         recentActivities: activitiesResult.items,
       });

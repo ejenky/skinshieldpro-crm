@@ -169,6 +169,25 @@
 .kanban-card-phone {
   font-family: var(--mono);
   font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.kanban-card-phone:hover {
+  text-decoration: underline;
+}
+
+.kanban-card-email {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kanban-card-email:hover {
+  text-decoration: underline;
 }
 
 /* ── Mobile ── */

@@ -6,7 +6,7 @@ import { DashboardSkeleton } from '../components/Skeleton';
 import './DashboardPage.css';
 
 export default function DashboardPage() {
-  const { total, stageCounts, recentActivities, loading } = useDashboardStats();
+  const { total, withPhone, stageCounts, recentActivities, loading } = useDashboardStats();
 
   if (loading) {
     return <DashboardSkeleton />;
@@ -15,7 +15,7 @@ export default function DashboardPage() {
   return (
     <div className="dashboard">
       <h2 className="dashboard-title">Dashboard</h2>
-      <StatCards total={total} stageCounts={stageCounts} />
+      <StatCards total={total} stageCounts={stageCounts} withPhone={withPhone} />
       <div className="dashboard-grid">
         <PipelineOverview total={total} stageCounts={stageCounts} />
         <RecentActivity activities={recentActivities} />

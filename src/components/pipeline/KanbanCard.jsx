@@ -39,7 +39,24 @@ export default function KanbanCard({ contact, onClick }) {
           <span>{[contact.city, contact.state].filter(Boolean).join(', ')}</span>
         ) : null}
         {contact.phone && (
-          <span className="kanban-card-phone">{formatPhone(contact.phone)}</span>
+          <a
+            className="kanban-card-phone link-tel"
+            href={`tel:${contact.phone}`}
+            onClick={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+          >
+            {formatPhone(contact.phone)}
+          </a>
+        )}
+        {contact.email && (
+          <a
+            className="kanban-card-email link-email"
+            href={`mailto:${contact.email}`}
+            onClick={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+          >
+            {contact.email}
+          </a>
         )}
       </div>
     </div>

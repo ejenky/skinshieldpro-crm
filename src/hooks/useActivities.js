@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import pb from '../lib/pocketbase';
+import { useAuth } from './useAuth';
 
 export function useActivities(contactId) {
   const [activities, setActivities] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { isValid, initializing } = useAuth();
 
   const refresh = useCallback(async () => {
-    if (!contactId) return;
+    if (!contactId || initializing || !isValid) return;
     setLoading(true);
     try {
       const result = await pb.collection('activities').getFullList({
@@ -19,7 +21,7 @@ export function useActivities(contactId) {
     } finally {
       setLoading(false);
     }
-  }, [contactId]);
+  }, [contactId, isValid, initializing]);
 
   useEffect(() => {
     refresh();

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './hooks/useAuth';
+import { AuthProvider, useAuth } from './hooks/useAuth';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
@@ -17,37 +17,56 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
-function App() {
-  const { isValid } = useAuth();
+function AuthBootstrap() {
+  return (
+    <div className="auth-bootstrap">
+      <div className="auth-bootstrap-spinner" aria-hidden="true" />
+      <span className="auth-bootstrap-label">Loading…</span>
+    </div>
+  );
+}
+
+function AppRoutes() {
+  const { isValid, initializing } = useAuth();
+
+  if (initializing) return <AuthBootstrap />;
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          index
-          element={isValid ? <Navigate to="/dashboard" replace /> : <LandingPage />}
-        />
-        <Route
-          path="/login"
-          element={isValid ? <Navigate to="/dashboard" replace /> : <LoginPage />}
-        />
-        <Route
-          element={
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          }
-        >
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="contacts" element={<ContactsPage />} />
-          <Route path="contacts/:id" element={<ContactsPage />} />
-          <Route path="pipeline" element={<PipelinePage />} />
-          <Route path="import" element={<ImportPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        index
+        element={isValid ? <Navigate to="/dashboard" replace /> : <LandingPage />}
+      />
+      <Route
+        path="/login"
+        element={isValid ? <Navigate to="/dashboard" replace /> : <LoginPage />}
+      />
+      <Route
+        element={
+          <ProtectedRoute>
+            <Layout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="contacts" element={<ContactsPage />} />
+        <Route path="contacts/:id" element={<ContactsPage />} />
+        <Route path="pipeline" element={<PipelinePage />} />
+        <Route path="import" element={<ImportPage />} />
+        <Route path="settings" element={<SettingsPage />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

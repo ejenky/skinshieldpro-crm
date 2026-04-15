@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import pb from '../lib/pocketbase';
 import { STAGES } from '../utils/constants';
+import { useAuth } from './useAuth';
 
 export function useDashboardStats() {
   const [stats, setStats] = useState({
@@ -10,8 +11,10 @@ export function useDashboardStats() {
     recentActivities: [],
   });
   const [loading, setLoading] = useState(true);
+  const { isValid, initializing } = useAuth();
 
   const refresh = useCallback(async () => {
+    if (initializing || !isValid) return;
     setLoading(true);
     try {
       // Fetch all contacts (just id + stage + phone) to compute counts client-side.
@@ -50,7 +53,7 @@ export function useDashboardStats() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isValid, initializing]);
 
   useEffect(() => {
     refresh();

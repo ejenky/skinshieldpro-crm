@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import pb from '../lib/pocketbase';
+import { useAuth } from './useAuth';
 
 const PER_PAGE = 30;
 
@@ -9,8 +10,10 @@ export function useContacts({ search = '', stage = '', gymType = '', state = '',
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
   const abortRef = useRef(null);
+  const { isValid, initializing } = useAuth();
 
   const refresh = useCallback(async () => {
+    if (initializing || !isValid) return;
     // Cancel any in-flight request
     if (abortRef.current) abortRef.current.abort();
     const controller = new AbortController();
@@ -48,7 +51,7 @@ export function useContacts({ search = '', stage = '', gymType = '', state = '',
     } finally {
       if (!controller.signal.aborted) setLoading(false);
     }
-  }, [search, stage, gymType, state, hasPhone, sort, page]);
+  }, [search, stage, gymType, state, hasPhone, sort, page, isValid, initializing]);
 
   useEffect(() => {
     refresh();

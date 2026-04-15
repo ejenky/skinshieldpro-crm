@@ -5,6 +5,7 @@ import ContactDetail from '../components/contacts/ContactDetail';
 import { STAGE_MAP } from '../utils/constants';
 import { PipelineSkeleton } from '../components/Skeleton';
 import { useToast } from '../components/layout/layoutContext';
+import { useAuth } from '../hooks/useAuth';
 import './PipelinePage.css';
 
 export default function PipelinePage() {
@@ -12,8 +13,10 @@ export default function PipelinePage() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(null);
   const addToast = useToast();
+  const { isValid, initializing } = useAuth();
 
   const loadContacts = useCallback(async () => {
+    if (initializing || !isValid) return;
     setLoading(true);
     try {
       const items = await pb.collection('contacts').getFullList({
@@ -25,7 +28,7 @@ export default function PipelinePage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [isValid, initializing]);
 
   useEffect(() => {
     loadContacts();

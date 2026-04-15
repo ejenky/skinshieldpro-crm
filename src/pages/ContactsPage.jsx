@@ -13,6 +13,7 @@ export default function ContactsPage() {
   const [stageFilter, setStageFilter] = useState(searchParams.get('stage') || '');
   const [typeFilter, setTypeFilter] = useState(searchParams.get('type') || '');
   const [stateFilter, setStateFilter] = useState(searchParams.get('state') || '');
+  const [hasPhone, setHasPhone] = useState(searchParams.get('hasPhone') === '1');
   const [sort, setSort] = useState('-created');
   const [page, setPage] = useState(1);
   const [selected, setSelected] = useState(null);
@@ -32,6 +33,7 @@ export default function ContactsPage() {
     stage: stageFilter,
     gymType: typeFilter,
     state: stateFilter,
+    hasPhone,
     sort,
     page,
   });
@@ -64,6 +66,16 @@ export default function ContactsPage() {
     else if (key === 'state') setStateFilter(value);
     setPage(1);
   }, [searchParams, setSearchParams]);
+
+  const toggleHasPhone = useCallback(() => {
+    const next = !hasPhone;
+    const params = new URLSearchParams(searchParams);
+    if (next) params.set('hasPhone', '1');
+    else params.delete('hasPhone');
+    setSearchParams(params, { replace: true });
+    setHasPhone(next);
+    setPage(1);
+  }, [hasPhone, searchParams, setSearchParams]);
 
   return (
     <div className="contacts-page">
@@ -109,6 +121,15 @@ export default function ContactsPage() {
           <option value="">All States</option>
           {US_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
+
+        <button
+          type="button"
+          className={`filter-toggle${hasPhone ? ' filter-toggle--active' : ''}`}
+          onClick={toggleHasPhone}
+          aria-pressed={hasPhone}
+        >
+          Has Phone
+        </button>
       </div>
 
       {/* Table */}
@@ -119,7 +140,7 @@ export default function ContactsPage() {
         selectedId={selected?.id}
         sort={sort}
         onSort={setSort}
-        hasFilters={!!(debouncedSearch || stageFilter || typeFilter || stateFilter)}
+        hasFilters={!!(debouncedSearch || stageFilter || typeFilter || stateFilter || hasPhone)}
       />
 
       {/* Pagination */}

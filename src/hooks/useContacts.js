@@ -3,7 +3,7 @@ import pb from '../lib/pocketbase';
 
 const PER_PAGE = 30;
 
-export function useContacts({ search = '', stage = '', gymType = '', state = '', sort = '-created', page = 1 } = {}) {
+export function useContacts({ search = '', stage = '', gymType = '', state = '', hasPhone = false, sort = '-created', page = 1 } = {}) {
   const [contacts, setContacts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
@@ -28,6 +28,7 @@ export function useContacts({ search = '', stage = '', gymType = '', state = '',
       if (stage) filters.push(`stage = '${stage}'`);
       if (gymType) filters.push(`gym_type = '${gymType}'`);
       if (state) filters.push(`state = '${state}'`);
+      if (hasPhone) filters.push(`phone != ""`);
 
       const result = await pb.collection('contacts').getList(page, PER_PAGE, {
         sort,
@@ -47,7 +48,7 @@ export function useContacts({ search = '', stage = '', gymType = '', state = '',
     } finally {
       if (!controller.signal.aborted) setLoading(false);
     }
-  }, [search, stage, gymType, state, sort, page]);
+  }, [search, stage, gymType, state, hasPhone, sort, page]);
 
   useEffect(() => {
     refresh();

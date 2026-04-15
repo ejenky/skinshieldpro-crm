@@ -105,6 +105,29 @@
   border-color: var(--accent);
 }
 
+.filter-toggle {
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+
+.filter-toggle:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.filter-toggle--active {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 /* ── Loading / empty ── */
 .contacts-loading,
 .contacts-empty {

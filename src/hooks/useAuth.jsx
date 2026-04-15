@@ -4,39 +4,22 @@ import pb from '../lib/pocketbase';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(pb.authStore.record);
-  const [token, setToken] = useState(pb.authStore.token);
-  const [initializing, setInitializing] = useState(true);
+  // PocketBase's LocalAuthStore reads localStorage synchronously in its
+  // constructor, so we can seed state from it without waiting on the network.
+  const [user, setUser] = useState(() => pb.authStore.record);
+  const [token, setToken] = useState(() => pb.authStore.token);
+  const [initializing, setInitializing] = useState(() => !pb.authStore.isValid && !!pb.authStore.token);
   const [loggingIn, setLoggingIn] = useState(false);
 
-  // Subscribe to authStore changes so all consumers stay in sync.
   useEffect(() => {
+    // Keep state in sync with authStore changes (login, logout, refresh).
     const unsubscribe = pb.authStore.onChange((newToken, newRecord) => {
       setToken(newToken);
       setUser(newRecord);
     });
+    // authStore is restored synchronously — flip initializing off immediately.
+    setInitializing(false);
     return () => unsubscribe();
-  }, []);
-
-  // On mount, verify any token restored from localStorage is still valid.
-  useEffect(() => {
-    let cancelled = false;
-
-    async function init() {
-      if (pb.authStore.isValid) {
-        try {
-          await pb.collection('crm_users').authRefresh();
-        } catch (err) {
-          // Token expired or server rejected it — clear so the user is sent to login.
-          console.warn('Auth refresh failed, clearing session:', err?.message || err);
-          pb.authStore.clear();
-        }
-      }
-      if (!cancelled) setInitializing(false);
-    }
-
-    init();
-    return () => { cancelled = true; };
   }, []);
 
   const login = useCallback(async (email, password) => {

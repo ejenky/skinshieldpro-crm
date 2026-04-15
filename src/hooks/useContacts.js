@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import pb from '../lib/pocketbase';
 import { useAuth } from './useAuth';
 
@@ -9,72 +9,69 @@ export function useContacts({ search = '', stage = '', gymType = '', state = '',
   const [totalPages, setTotalPages] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
-  const abortRef = useRef(null);
+  const [refreshKey, setRefreshKey] = useState(0);
   const { isValid, initializing } = useAuth();
 
-  const refresh = useCallback(async () => {
+  useEffect(() => {
     if (initializing || !isValid) return;
-    // Cancel any in-flight request
-    if (abortRef.current) abortRef.current.abort();
-    const controller = new AbortController();
-    abortRef.current = controller;
 
+    let mounted = true;
     setLoading(true);
-    try {
-      const filters = [];
-      if (search) {
-        const q = search.replace(/'/g, "\\'");
-        filters.push(
-          `(gym_name ~ '${q}' || contact_name ~ '${q}' || city ~ '${q}' || state ~ '${q}' || phone ~ '${q}' || email ~ '${q}')`
-        );
-      }
-      if (stage) filters.push(`stage = '${stage}'`);
-      if (gymType) filters.push(`gym_type = '${gymType}'`);
-      if (state) filters.push(`state = '${state}'`);
-      if (hasPhone) filters.push(`phone != ""`);
 
-      const result = await pb.collection('contacts').getList(page, PER_PAGE, {
-        sort,
-        filter: filters.join(' && ') || undefined,
-        signal: controller.signal,
-      });
+    (async () => {
+      try {
+        const filters = [];
+        if (search) {
+          const q = search.replace(/'/g, "\\'");
+          filters.push(
+            `(gym_name ~ '${q}' || contact_name ~ '${q}' || city ~ '${q}' || state ~ '${q}' || phone ~ '${q}' || email ~ '${q}')`
+          );
+        }
+        if (stage) filters.push(`stage = '${stage}'`);
+        if (gymType) filters.push(`gym_type = '${gymType}'`);
+        if (state) filters.push(`state = '${state}'`);
+        if (hasPhone) filters.push(`phone != ""`);
 
-      if (!controller.signal.aborted) {
+        const result = await pb.collection('contacts').getList(page, PER_PAGE, {
+          sort,
+          filter: filters.join(' && ') || undefined,
+        });
+        if (!mounted) return;
         setContacts(result.items);
         setTotalPages(result.totalPages);
         setTotalItems(result.totalItems);
+      } catch (err) {
+        if (!mounted) return;
+        if (!err?.isAbort) {
+          console.error('Failed to load contacts:', err);
+        }
+      } finally {
+        if (mounted) setLoading(false);
       }
-    } catch (err) {
-      if (err.name !== 'AbortError') {
-        console.error('Failed to load contacts:', err);
-      }
-    } finally {
-      if (!controller.signal.aborted) setLoading(false);
-    }
-  }, [search, stage, gymType, state, hasPhone, sort, page, isValid, initializing]);
+    })();
 
-  useEffect(() => {
-    refresh();
-    return () => {
-      if (abortRef.current) abortRef.current.abort();
-    };
-  }, [refresh]);
+    return () => { mounted = false; };
+  }, [search, stage, gymType, state, hasPhone, sort, page, isValid, initializing, refreshKey]);
+
+  const refresh = useCallback(() => {
+    setRefreshKey((k) => k + 1);
+  }, []);
 
   const create = useCallback(async (data) => {
     const record = await pb.collection('contacts').create(data);
-    await refresh();
+    refresh();
     return record;
   }, [refresh]);
 
   const update = useCallback(async (id, data) => {
     const record = await pb.collection('contacts').update(id, data);
-    await refresh();
+    refresh();
     return record;
   }, [refresh]);
 
   const remove = useCallback(async (id) => {
     await pb.collection('contacts').delete(id);
-    await refresh();
+    refresh();
   }, [refresh]);
 
   return { contacts, totalPages, totalItems, loading, refresh, create, update, remove };

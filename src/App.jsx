@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
 import ContactsPage from './pages/ContactsPage';
 import PipelinePage from './pages/PipelinePage';
@@ -40,6 +41,10 @@ function AppRoutes() {
       <Route
         path="/login"
         element={isValid ? <Navigate to="/dashboard" replace /> : <LoginPage />}
+      />
+      <Route
+        path="/signup"
+        element={isValid ? <Navigate to="/dashboard" replace /> : <SignupPage />}
       />
       <Route
         element={

@@ -146,3 +146,20 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.login-link {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.login-link a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}

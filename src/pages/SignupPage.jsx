@@ -2,19 +2,31 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
-export default function LoginPage() {
-  const { login, loading } = useAuth();
+export default function SignupPage() {
+  const { signup, loading } = useAuth();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
   const [error, setError] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError('');
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters');
+      return;
+    }
+    if (password !== passwordConfirm) {
+      setError('Passwords do not match');
+      return;
+    }
+
     try {
-      await login(email, password);
+      await signup(name, email, password, passwordConfirm);
     } catch (err) {
-      setError(err.message || 'Invalid email or password');
+      setError(err.message || 'Failed to create account');
     }
   }
 
@@ -34,9 +46,22 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="login-subtitle">Sign in to your account</p>
+        <p className="login-subtitle">Create your account</p>
 
         {error && <div className="login-error">{error}</div>}
+
+        <div className="login-field">
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your full name"
+            required
+            autoFocus
+          />
+        </div>
 
         <div className="login-field">
           <label htmlFor="email">Email</label>
@@ -47,7 +72,6 @@ export default function LoginPage() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
             required
-            autoFocus
           />
         </div>
 
@@ -58,17 +82,29 @@ export default function LoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
+            placeholder="At least 8 characters"
+            required
+          />
+        </div>
+
+        <div className="login-field">
+          <label htmlFor="passwordConfirm">Confirm Password</label>
+          <input
+            id="passwordConfirm"
+            type="password"
+            value={passwordConfirm}
+            onChange={(e) => setPasswordConfirm(e.target.value)}
+            placeholder="Confirm your password"
             required
           />
         </div>
 
         <button type="submit" className="login-btn" disabled={loading}>
-          {loading ? 'Signing in...' : 'Sign in'}
+          {loading ? 'Creating account...' : 'Create account'}
         </button>
 
         <p className="login-link">
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          Already have an account? <Link to="/login">Sign in</Link>
         </p>
       </form>
     </div>

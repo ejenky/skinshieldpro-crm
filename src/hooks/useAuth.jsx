@@ -22,6 +22,21 @@ export function AuthProvider({ children }) {
     return () => unsubscribe();
   }, []);
 
+  const signup = useCallback(async (name, email, password, passwordConfirm) => {
+    setLoggingIn(true);
+    try {
+      await pb.collection('crm_users').create({
+        name,
+        email,
+        password,
+        passwordConfirm,
+      });
+      return await pb.collection('crm_users').authWithPassword(email, password);
+    } finally {
+      setLoggingIn(false);
+    }
+  }, []);
+
   const login = useCallback(async (email, password) => {
     setLoggingIn(true);
     try {
@@ -41,6 +56,7 @@ export function AuthProvider({ children }) {
     isValid: !!token && pb.authStore.isValid,
     initializing,
     loading: loggingIn,
+    signup,
     login,
     logout,
   };
